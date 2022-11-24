@@ -1,9 +1,11 @@
 $(document).ready(function () {
-	var mainURL = 'http://127.0.0.1:5000/';
-    var previewURL = mainURL + 'preview';
-    var predictURL = mainURL + 'predict';
-	var filterURL = mainURL + 'filter';
-	var downloadPredictedCSVURL = mainURL + 'downloadPredictedCSV';
+	urlLINK = window.location.origin
+	var mainURL = String(urlLINK);
+	// var mainURL = 'http://127.0.0.1:5000';
+    var previewURL = mainURL + '/preview';
+    var predictURL = mainURL + '/predict';
+	var filterURL = mainURL + '/filter';
+	var downloadPredictedCSVURL = mainURL + '/downloadPredictedCSV';
     
     $('#loader').hide();
 	$('#loader_predict').hide();
@@ -304,12 +306,17 @@ $(document).ready(function () {
 
     // convert blob to URL
 	function convert_blob_URL(response, type, filename){
-		var link= document.createElement('a');
-		var blob = new Blob([response], { type: type});
-		var URL = window.URL || window.webkitURL;
-		link.href= URL.createObjectURL(blob);
-		link.download=filename;
-		link.click();
+		var blob;
+		var downloadLink;
+
+		blob = new Blob([response], {type: type});
+		downloadLink = document.createElement('a');
+		downloadLink.download = filename;
+		downloadLink.href= window.URL.createObjectURL(blob);
+		console.log("downloadLink.href", downloadLink.href);
+		downloadLink.style.display = "none";
+		document.body.appendChild(downloadLink);
+		downloadLink.click();
 	}
 
 
@@ -317,8 +324,9 @@ $(document).ready(function () {
     function downloadPredictedCSV(){
         console.log(' ==== Download CSV ===== ')
 		settings = requestObjectFunc(downloadPredictedCSVURL, "GET")
+		console.log("download settings: ", settings)
         $.ajax(settings).done(function (response) {
-            console.log(response)
+            // console.log(response)
 			var filename = "predict_result.csv";
 			type = "text/csv" 
 			convert_blob_URL(response, type, filename)
