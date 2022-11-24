@@ -5,6 +5,7 @@ import numpy as np
 import os, webbrowser
 import matplotlib
 import matplotlib.pyplot as plt
+from functools import lru_cache
 matplotlib.use('Agg')
 
 from flask import Flask, request, jsonify, send_file, render_template
@@ -21,15 +22,20 @@ CORS(app, support_credentials=True)
 app.config['SECRET_KEY'] =  os.urandom(24)
 
 forecast_df = pd.DataFrame()
+mdl_path = 'model/demand_forecast_mdl_29092022.pkl'
+
+@lru_cache
+def load_model(path):
+    model = joblib.load(path)
+
+    return model
 
 def getPredResult(df):
     global forecast_df
-
     print('\n ====== Predict function ======= \n')
     
-    #Load model pickle file 
-    mdl_path = 'model/demand_forecast_mdl_29092022.pkl'
-    demand_forecast_mdl = joblib.load(mdl_path)
+    #Load model pickle file
+    demand_forecast_mdl = load_model(mdl_path)
 
     cols = [col for col in df.columns if col not in ['date', 'id', "sales", "year", "store_name", "item_name", "month"]]
  
@@ -165,11 +171,11 @@ def downloadCSV():
     predicted_filename = 'output/predict_result.csv'
     latest_data = forecast_df.copy()
     latest_data.to_csv(predicted_filename, index= False)
-    return send_file(predicted_filename, mimetype="text/csv", download_name= predicted_filename.split('/')[-1])
+    return send_file(predicted_filename, mimetype="text/csv", attachment_filename= predicted_filename.split('/')[-1])
 
 ###############################################################################
 if __name__ == "__main__": 
-    app.run(debug=True, host='0.0.0.0')
+    app.run(host='0.0.0.0')
     
 ###############################################################################
 ###############################################################################
