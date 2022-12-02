@@ -7,8 +7,6 @@
 	<link rel="shortcut icon" href="/images/df.png" />
 	<link rel="stylesheet" href="/css/font-4.7.0.min.css">
 	<link rel="stylesheet" href="/js/excel-like-filter/excel-bootstrap-table-filter-style.css" />
-	<link rel="stylesheet" href="/css/font-4.7.0.min.css">
-	
 </head>
 
 <body >
@@ -55,7 +53,7 @@
 			<div class="jumbotron col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 border">
 				<div class="form-group-lg">
 				  <form id="upload-file" method="post" enctype="multipart/form-data">
-					  <input type="file" class="file" name="file">
+					  <input type="file" class="file" name="file" id="fileBrowseInput">
 					  <div class="input-group input-group-sm">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
 						<input type="text" class="form-control" placeholder="Upload File" disabled>
@@ -133,7 +131,8 @@
 				<div class="row">
 					<div class="col-md-10">
 						<label class="text-warning fa fa-2x" >Avg. sales per Store</label>
-						<img src="/images/Univariate/avg_sales_per_store.png" class="img-responsive img-rounded" />
+						<!-- <img src="/images/Univariate/avg_sales_per_store.png" class="img-responsive img-rounded" /> -->
+						<img src="/images/Univariate/avg_sales_per_store_bar_chart.jpeg" class="img-responsive img-rounded" />
 						<h4 class="text-left bg-warning" style="padding: 12px 12px;">✴️ From the data, it is clear that the stores with <b>ID 2 and 8</b> have higher average sales than the remaining stores and is a clear indication that they are doing good money! <br>
 							✴️ Whereas store with <b>ID 7</b> has very poor performance in terms of average sales.</h4>
 					</div>
@@ -148,7 +147,7 @@
 			<div class = "overflowDiv">
 				<div class="row">
 					<div class="col-md-10">
-						<label class="text-warning fa fa-2x" >Store 1 and item - Brown Rice & Lentils</label>
+						<label class="text-warning fa fa-2x" >Store- 1 and Item- Brown Rice & Lentils</label>
 						<img src="/images/Bivariate/store1_brownRice.png" class="img-responsive img-rounded" />
 						<h4 class="text-left bg-warning" style="padding: 12px 12px;">✴️ From the data, it can be seen that the sales of Brown Rice
 							& Lentils for the year 2013 is less during August to December.</h4>
@@ -157,7 +156,7 @@
 				<br>
 				<div class="row">
 					<div class="col-md-10">
-						<label class="text-warning fa fa-2x" >Store 1 and different items of same store - sales plot</label>
+						<label class="text-warning fa fa-2x" >Store- 1 and different items of same store - sales plot</label>
 						<img src="/images/Bivariate/store_item_sales.png" class="img-responsive img-rounded" />
 						
 					</div>
@@ -165,8 +164,9 @@
 				<br>
 				<div class="row">
 					<div class="col-md-10">
-						<label class="text-warning fa fa-2x">Store 5 and Item 6 - rolls/buns sales plot</label>
-						<img src="/images/Bivariate/store3_item6.png" class="img-responsive img-rounded" />
+						<label class="text-warning fa fa-2x">Store- 3 and Item- rolls/buns sales plot</label>
+						<!-- <img src="/images/Bivariate/store3_item6.png" class="img-responsive img-rounded" /> -->
+						<img src="/images/Bivariate/store3_item6_sma_20days.jpeg" class="img-responsive img-rounded" />
 					</div>
 				</div>			
 			</div>
@@ -216,7 +216,7 @@
 			<div class="jumbotron col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 border">
 				<div class="form-group-lg">
 					<form id="predict-file" method="post" enctype="multipart/form-data">
-						<input type="file" class="file" name="file">
+						<input type="file" class="filePredict" name="file" id="fileBrowsePredict">
 						<div class="input-group input-group-sm">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
 						<input type="text" class="form-control " disabled placeholder="Upload File">
@@ -274,7 +274,7 @@
 							box-shadow: 0 1px 4px rgb(146 161 176 / 15%);
 							cursor: pointer;">
 								<option disabled selected>Select date from</option>
-								<option value="01-01-2018">01-01-2018</option>
+								<option value="01-01-2023">01-01-2023</option>
 							  </select>
 						</div>
 						<div class="form-group col-md-3 col-sm-3" style="user-select: auto;">
