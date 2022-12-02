@@ -53,12 +53,31 @@ $(document).ready(function () {
 	$(document).on('click', '#fileBrowse', function(){
 		var file = $(this).parent().parent().parent().find('.file');
 		file.trigger('click');
+
+		$('#tablePreviewBody').html("");
+		$('#tablePreviewHeader').html("");
 	});
     
     // on change file action
 	$(document).on('change', '.file', function(){
-		$(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
-		$('#buttonPreview').attr('disabled', false);
+		var fileInput = null;
+		var fileName = null;
+		fileInput = document.getElementById('fileBrowseInput')
+		fileName = fileInput.files[0].name;
+		console.log("file browsed: ", fileName)
+
+		 // Allowing file type
+		 var allowedExtensions = /(\.csv)$/i;
+		 if (!allowedExtensions.exec(fileName)) {
+						 alert('Invalid file type!! Accepted file extension - CSV');
+						 fileInput.value = '';
+						 return false;
+					 }
+		else{
+			$(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+			$('#buttonPreview').attr('disabled', false);
+
+		}
 	});
 	
 	// on click of Preview button
@@ -133,16 +152,43 @@ $(document).ready(function () {
     
 	// on click of browse button for prediction
     $(document).on('click', '#browsePrediction', function(){
-		var file = $(this).parent().parent().parent().find('.file');
+		var file = $(this).parent().parent().parent().find('.filePredict');
 		file.trigger('click');
+
+		$('#tablePredictBody').html("");
+		$('#tablePredictHeader').html("");
+
+		$('#buttonDownloadPredictedCSV').hide()
+
+		$('#loader_filter').hide();
+		$('#divTableFilter').hide();
+		$('#tableFilterBody').html("");
+		$('#tableFilterHeader').html("");
+		$('#form-box').hide();
+
+		$('#displayPredictPlot').html("");
 		
 	});
 	
 	// or on change
-	$(document).on('change', '.file', function(){
-		$(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
-		$('#buttonPrediction').prop('disabled',false);
-		
+	$(document).on('change', '.filePredict', function(){
+		var fileInput = null;
+		var fileName = null;
+		fileInput = document.getElementById('fileBrowsePredict')
+		fileName = fileInput.files[0].name;
+		console.log("file browsed: ", fileName)
+
+		 // Allowing file type
+		 var allowedExtensions = /(\.csv)$/i;
+		 if (!allowedExtensions.exec(fileName)) {
+						 alert('Invalid file type!! Accepted file extension - CSV');
+						 fileInput.value = '';
+						 return false;
+					 }
+		else{
+			$(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+			$('#buttonPrediction').attr('disabled',false);
+		}
 	});
 	
 	// on click of Prediction button
